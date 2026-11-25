@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="PermakVision — Studio visualisasi desain permak pakaian interaktif dengan pola SVG parametrik, simulasi two-tone, dan cetak Design Brief penjahit." />
+  <title>PermakVision — Interactive Clothing Alteration &amp; Visualization Studio</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;1,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <!-- TOP NAVIGATION -->
+  <header class="navbar no-print">
+    <div class="nav-inner">
+      <a href="#landing" class="brand" data-nav="landing" aria-label="PermakVision Home">
+        <div class="brand-badge" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+            <circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-title">PermakVision</div>
+          <span class="brand-tag">SVG PATTERN &amp; ALTERATION LAB</span>
+        </div>
+      </a>
+
+      <nav class="nav-links" id="mainNav" aria-label="Navigasi Utama">
+        <button type="button" class="nav-btn active" data-nav="landing">Playground</button>
+        <button type="button" class="nav-btn" data-nav="studio">Design Studio</button>
+        <button type="button" class="nav-btn" data-nav="catalog">Template Catalog</button>
+        <button type="button" class="nav-btn" data-nav="mydesigns">
+          My Designs <span class="nav-count" id="navDesignCount">0</span>
+        </button>
+        <button type="button" class="nav-btn" data-nav="brief">Design Brief</button>
+        <button type="button" class="nav-btn" data-nav="admin">Studio Admin</button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="appRoot">
+    <!-- 1. LANDING PAGE -->
+    <section id="view-landing" class="view-section active" aria-labelledby="heroHeading">
+      <div class="hero-playground">
+        <div>
+          <div class="hero-stickers-row">
+            <span class="sticker sticker-pink">&#9986; Parametric Fashion Flats</span>
+            <span class="sticker sticker-lime">&#9733; Two-Tone Color Block</span>
+            <span class="sticker sticker-yellow">Adaptive Tailoring</span>
+          </div>
+
+          <h1 id="heroHeading" class="hero-headline">
+            Reimagine the <span class="highlight-pink">Clothes</span> You <span class="editorial-italic">Already</span> <span class="highlight-lime">Own.</span>
+          </h1>
+
+          <p class="hero-sub">
+            Studio visualisasi pola permak pakaian interaktif. Eksplorasi potongan kemeja, celana jeans, rok, hingga dress dengan ilustrasi pola teknis real-time, kombinasi dua warna (two-tone), dan cetak Design Brief siap pakai untuk penjahit.
+          </p>
+
+          <div class="hero-cta-row">
+            <button type="button" class="btn btn-cobalt" data-nav="studio">&#9986; Start Designing</button>
+            <button type="button" class="btn btn-yellow" data-nav="catalog">&#10024; Explore Templates</button>
+          </div>
+
+          <div class="palette-strip">
+            <span>Studio Swatches:</span>
+            <span class="chip-dot" style="background:#4357FF;" title="Electric Cobalt"></span>
+            <span class="chip-dot" style="background:#FF4FA3;" title="Hot Pink"></span>
+            <span class="chip-dot" style="background:#FF8A35;" title="Tangerine Orange"></span>
+            <span class="chip-dot" style="background:#C7F464;" title="Lime Green"></span>
+            <span class="chip-dot" style="background:#B9A2FF;" title="Lavender"></span>
+            <span class="chip-dot" style="background:#FFE45E;" title="Bright Yellow"></span>
+          </div>
+        </div>
+
+        <!-- Hero Interactive Parametric SVG Before/After Showcase -->
+        <div class="hero-collage">
+          <span class="sticker sticker-yellow floating-tag-top">&#9733; LIVE SVG BEFORE / AFTER</span>
+          <span class="sticker sticker-lime floating-tag-bottom" id="heroShowcaseCost">EST. PERMAK: Rp65rb – Rp145rb</span>
+
+          <div class="hero-collage-header">
+            <strong class="hero-collage-title" id="heroShowcaseTitle">Kemeja Oversized &rarr; Cropped Two-Tone</strong>
+            <div class="hero-collage-actions">
+              <button type="button" class="btn btn-white btn-sm" data-hero-demo="shirt">Demo Kemeja</button>
+              <button type="button" class="btn btn-pink btn-sm" data-hero-demo="jeans">Demo Celana</button>
+            </div>
+          </div>
+
+          <div class="hero-svg-stage" id="heroSvgStage"></div>
+        </div>
+      </div>
+
+      <!-- HOW IT WORKS -->
+      <div class="section-banner">
+        <div>
+          <span class="sticker sticker-cobalt section-tag">STUDIO WORKFLOW</span>
+          <h2 class="section-title">How It Works</h2>
+        </div>
+        <p class="section-desc">
+          Setiap jenis pakaian memiliki aturan jahit berbeda—PermakVision menyesuaikan kontrol editor secara otomatis untuk Atasan, Celana, Rok, dan Dress.
+        </p>
+      </div>
+
+      <div class="how-grid">
+        <article class="studio-card how-card">
+          <div class="how-num" style="background:var(--pink); color:var(--white);">01</div>
+          <h3 class="how-title">Pilih Jenis Pakaian</h3>
+          <p class="how-text">Pilih Kemeja, Kaos, Jaket, Celana Jeans, Rok, atau Dress. Kontrol editor langsung beradaptasi.</p>
+        </article>
+        <article class="studio-card how-card">
+          <div class="how-num" style="background:var(--yellow);">02</div>
+          <h3 class="how-title">Atur Siluet &amp; Potongan</h3>
+          <p class="how-text">Sesuaikan panjang, kerah atau ban pinggang, potongan kaki celana, fitting, dan detail fungsional.</p>
+        </article>
+        <article class="studio-card how-card">
+          <div class="how-num" style="background:var(--lime);">03</div>
+          <h3 class="how-title">Eksplorasi Two-Tone</h3>
+          <p class="how-text">Tambahkan warna alternatif (color-blocking lengan, kerah, kaki kiri-kanan, atau cuff bawah).</p>
+        </article>
+        <article class="studio-card how-card">
+          <div class="how-num" style="background:var(--lavender);">04</div>
+          <h3 class="how-title">Cetak Design Brief</h3>
+          <p class="how-text">Simpan ke My Designs dan cetak lembar spesifikasi teknis PDF untuk dibawa ke penjahit.</p>
+        </article>
+      </div>
+
+      <!-- FEATURED ALTERATION IDEAS -->
+      <div class="section-banner">
+        <div>
+          <span class="sticker sticker-orange section-tag">FEATURED SVG ALTERATIONS</span>
+          <h2 class="section-title">Popular Alteration Recipes</h2>
+        </div>
+        <button type="button" class="btn btn-white btn-sm" data-nav="catalog">Lihat Semua Template &rarr;</button>
+      </div>
+
+      <div class="featured-strip" id="landingFeaturedGrid"></div>
+
+      <!-- SUSTAINABILITY -->
+      <div class="sustain-banner">
+        <div>
+          <span class="sticker sticker-lime" style="margin-bottom:0.75rem;">CIRCULAR FASHION STUDIO</span>
+          <h2 class="section-title" style="color:var(--white); margin-bottom:0.85rem;">
+            The Most Sustainable Garment is the One <span class="editorial-italic" style="color:var(--lime);">Already in Your Closet.</span>
+          </h2>
+          <p class="sustain-copy">
+            Menggabungkan dua pakaian lama menjadi desain Two-Tone atau memendekkan celana yang kebesaran membantu memperpanjang umur pakai pakaian dan mengurangi limbah tekstil secara kreatif.
+          </p>
+          <button type="button" class="btn btn-pink" data-nav="studio">Mulai Desain Permak Sekarang</button>
+        </div>
+        <div class="sustain-stats">
+          <div class="stat-pill-box">
+            <div class="display-font stat-num" style="color:var(--lime);">+2.5 Thn</div>
+            <div class="stat-desc">Tambahan masa pakai pakaian setelah dimodifikasi</div>
+          </div>
+          <div class="stat-pill-box">
+            <div class="display-font stat-num" style="color:var(--yellow);">2-Tone</div>
+            <div class="stat-desc">Teknik color-block memanfaatkan kain perca atau sisa potongan</div>
+          </div>
+          <div class="stat-pill-box">
+            <div class="display-font stat-num" style="color:var(--pink);">9 Tipe</div>
+            <div class="stat-desc">Pola SVG parametrik adaptif untuk atasan, bawahan &amp; dress</div>
+          </div>
+          <div class="stat-pill-box">
+            <div class="display-font stat-num" style="color:var(--lavender);">PDF Brief</div>
+            <div class="stat-desc">Panduan visual yang jelas untuk komunikasi dengan penjahit</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FOOTER -->
+      <footer class="creative-footer">
+        <div>
+          <div class="brand-title" style="font-size:1.6rem;">PermakVision Studio</div>
+          <p class="footer-note">
+            Interactive Clothing Alteration &amp; Visualization Studio. Seluruh ilustrasi pola dan tarif merupakan simulasi perencanaan; kelayakan pengerjaan dan harga akhir wajib dikonfirmasi bersama penjahit.
+          </p>
+        </div>
+        <div class="footer-links">
+          <button type="button" class="btn btn-white btn-sm" data-nav="studio">Design Studio</button>
+          <button type="button" class="btn btn-white btn-sm" data-nav="catalog">Catalog</button>
+          <button type="button" class="btn btn-white btn-sm" data-nav="mydesigns">My Designs</button>
+          <button type="button" class="btn btn-dark btn-sm" data-nav="brief">Print Brief</button>
+        </div>
+      </footer>
+    </section>
+
+    <!-- 2. DESIGN STUDIO -->
+    <section id="view-studio" class="view-section" aria-labelledby="studioHeading">
+      <div class="studio-topbar">
+        <div>
+          <div class="studio-badges">
+            <span class="sticker sticker-cobalt">PARAMETRIC SVG STUDIO</span>
+            <span class="sticker sticker-pink" id="studioEditingTag" hidden>EDITING SAVED DESIGN</span>
+          </div>
+          <h1 id="studioHeading" class="section-title">Garment Alteration Studio</h1>
+        </div>
+
+        <div class="studio-actions">
+          <button type="button" class="btn btn-white btn-sm" id="btnUndo" disabled>&#8630; Undo</button>
+          <button type="button" class="btn btn-white btn-sm" id="btnResetDesign">Reset Awal</button>
+          <button type="button" class="btn btn-lime btn-sm" id="btnOpenStudioBrief">&#128196; Design Brief</button>
+          <button type="button" class="btn btn-cobalt btn-sm" id="btnOpenSaveModal">&#128190; Simpan Desain</button>
+        </div>
+      </div>
+
+      <div class="studio-grid">
+        <!-- LEFT: DOMINANT SVG PREVIEW STAGE -->
+        <div class="studio-card stage-panel">
+          <div class="stage-toolbar">
+            <div class="look-tabs" role="tablist" aria-label="Alternatif Desain">
+              <button type="button" role="tab" class="look-tab active" data-alt="0" aria-selected="true">Look A</button>
+              <button type="button" role="tab" class="look-tab" data-alt="1" aria-selected="false">Look B</button>
+              <button type="button" role="tab" class="look-tab" data-alt="2" aria-selected="false">Look C</button>
+            </div>
+
+            <div class="stage-toolbar-right">
+              <label class="guide-toggle-label">
+                <input type="checkbox" id="toggleGuideLines" checked />
+                Garis Potong Penjahit
+              </label>
+
+              <div class="mode-pills" role="group" aria-label="Mode Perbandingan">
+                <button type="button" class="mode-pill active" data-mode="after">Hasil Permak</button>
+                <button type="button" class="mode-pill" data-mode="side">Before / After</button>
+                <button type="button" class="mode-pill" data-mode="split">Split Slider</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="playground-canvas" id="studioCanvasStage"></div>
+
+          <div class="stage-footer-bar">
+            <div>
+              <div class="stage-meta-tags">
+                <strong class="stage-garment-title" id="studioGarmentTitle">Kemeja Lengan Panjang</strong>
+                <span class="sticker sticker-white" id="studioArchetypeTag">MODE: ATASAN</span>
+                <span class="sticker sticker-yellow" id="studioColorModeTag">1 WARNA</span>
+              </div>
+              <p class="stage-disclaimer">
+                Ilustrasi pola teknis SVG interaktif. Hasil jahitan akhir bergantung pada jenis bahan, sisa kampuh, dan keahlian penjahit.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: ADAPTIVE CONTROLS PANEL -->
+        <div class="controls-stack">
+          <div class="studio-card ctrl-box">
+            <div class="ctrl-header">
+              <h2 class="ctrl-title">1. Kategori Pakaian &amp; Template</h2>
+              <span class="sticker sticker-yellow">ADAPTIF</span>
+            </div>
+
+            <div class="form-block">
+              <label class="field-label">Pilih Jenis Pakaian (Kontrol Otomatis Menyesuaikan)</label>
+              <div class="chip-group" id="categoryChipGroup"></div>
+            </div>
+
+            <div class="form-block">
+              <label class="field-label" for="studioTemplateSelect">Terapkan Template Permak Cepat</label>
+              <select class="select-field" id="studioTemplateSelect">
+                <option value="">-- Pilih Template Desain --</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="studio-card ctrl-box">
+            <div class="ctrl-header">
+              <h2 class="ctrl-title" id="adaptiveCtrlHeader">2. Kontrol Permak Pakaian</h2>
+              <span class="sticker sticker-pink">LIVE SVG</span>
+            </div>
+            <div id="adaptiveControlsContainer"></div>
+          </div>
+
+          <div class="studio-card ctrl-box">
+            <div class="ctrl-header">
+              <h2 class="ctrl-title">3. Warna &amp; Alternatif Dua Warna (Two-Tone)</h2>
+              <span class="sticker sticker-orange">COLOR-BLOCK</span>
+            </div>
+
+            <div class="form-block twotone-toggle-row">
+              <div class="chip-group">
+                <button type="button" class="choice-chip active" id="btnColorSolid">1 Warna (Solid)</button>
+                <button type="button" class="choice-chip" id="btnColorTwoTone">+ 2 Warna (Two-Tone)</button>
+              </div>
+              <button type="button" class="btn btn-white btn-sm" id="btnSwapColors" hidden>&#8644; Tukar Warna</button>
+            </div>
+
+            <div class="form-block">
+              <div class="field-label">
+                <span>Warna Utama (Primary)</span>
+                <span class="mono hex-readout" id="valPrimaryHex">#FFFFFF</span>
+              </div>
+              <div class="swatch-row" id="primarySwatchesRow"></div>
+            </div>
+
+            <div class="twotone-panel" id="twoToneControlsBox" hidden>
+              <div class="form-block">
+                <div class="field-label">
+                  <span>Warna Alternatif / Kedua (Secondary)</span>
+                  <span class="mono hex-readout" id="valSecondaryHex">#4357FF</span>
+                </div>
+                <div class="swatch-row" id="secondarySwatchesRow"></div>
+              </div>
+
+              <div class="form-block">
+                <label class="field-label">Pola Pembagian Dua Warna (Color-Block)</label>
+                <div class="chip-group" id="twoTonePatternGroup"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="studio-card ctrl-box">
+            <div class="ctrl-header">
+              <h2 class="ctrl-title">4. Rekomendasi Ide Permak</h2>
+              <span class="sticker sticker-lime">RULE-BASED</span>
+            </div>
+            <div id="studioRecommendations"></div>
+            <p class="helper-caption">
+              *Rekomendasi disesuaikan dengan kategori pakaian; konfirmasikan kelayakan bahan dengan penjahit.
+            </p>
+          </div>
+
+          <div class="studio-card ctrl-box">
+            <div class="ctrl-header">
+              <h2 class="ctrl-title">5. Estimasi Biaya &amp; Catatan Penjahit</h2>
+            </div>
+
+            <div class="cost-summary">
+              <div class="cost-summary-top">
+                <div>
+                  <div class="mono cost-kicker">ESTIMASI BIAYA SIMULASI</div>
+                  <div class="cost-figure" id="studioCostRange">Rp0</div>
+                </div>
+                <div class="cost-diff-col">
+                  <div class="mono cost-kicker">TINGKAT KESULITAN</div>
+                  <span class="sticker sticker-white" id="studioDifficultyTag" style="margin-top:0.25rem;">Belum Ada Perubahan</span>
+                </div>
+              </div>
+
+              <ul class="itemized-ul" id="studioChangeList">
+                <li>Ubah kontrol desain di atas untuk menghitung estimasi biaya permak.</li>
+              </ul>
+              <p class="cost-disclaimer">
+                Catatan: Harga di atas adalah estimasi simulasi, bukan tarif resmi penjahit.
+              </p>
+            </div>
+
+            <div class="form-block" style="margin-top:0.95rem;">
+              <label class="field-label" for="studioTailorNotes">Catatan Khusus untuk Penjahit</label>
+              <textarea class="textarea-field" id="studioTailorNotes" rows="3" placeholder="Contoh: Gunakan kain perca katun biru untuk lengan &amp; kerah kontras, sisakan kampuh bawah 2 cm..."></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. TEMPLATE CATALOG -->
+    <section id="view-catalog" class="view-section" aria-labelledby="catalogHeading">
+      <div class="section-banner">
+        <div>
+          <span class="sticker sticker-pink section-tag">CURATED SVG TEMPLATES</span>
+          <h1 id="catalogHeading" class="section-title">Katalog Template Permak</h1>
+        </div>
+        <p class="section-desc">
+          Pilih inspirasi permak atasan, celana, rok, dress, maupun kombinasi two-tone lalu sesuaikan di Design Studio.
+        </p>
+      </div>
+
+      <div class="studio-card filter-strip">
+        <input type="search" class="input-field" id="catalogSearch" aria-label="Cari template" placeholder="Cari template (misal: two-tone, tapered, cropped, kargo)..." />
+        <select class="select-field" id="catalogFilterCategory" aria-label="Filter kategori pakaian">
+          <option value="all">Semua Kategori Pakaian</option>
+        </select>
+        <select class="select-field" id="catalogFilterType" aria-label="Filter jenis permak">
+          <option value="all">Semua Jenis Perubahan</option>
+        </select>
+      </div>
+
+      <div class="cards-grid" id="catalogGrid"></div>
+    </section>
+
+    <!-- 4. MY DESIGNS -->
+    <section id="view-mydesigns" class="view-section" aria-labelledby="myDesignsHeading">
+      <div class="section-banner">
+        <div>
+          <span class="sticker sticker-lime section-tag">SAVED WARDROBE LAB</span>
+          <h1 id="myDesignsHeading" class="section-title">My Designs Collection</h1>
+        </div>
+        <div class="mydesigns-toolbar">
+          <button type="button" class="btn btn-white btn-sm" id="btnExportDesigns">&#8681; Export JSON</button>
+          <label class="btn btn-white btn-sm" for="inputImportDesigns" style="cursor:pointer;">
+            &#8679; Import JSON
+            <input type="file" id="inputImportDesigns" accept="application/json" hidden />
+          </label>
+          <button type="button" class="btn btn-cobalt btn-sm" id="btnNewDesignFromList">+ Buat Desain Baru</button>
+        </div>
+      </div>
+
+      <div id="myDesignsContainer"></div>
+    </section>
+
+    <!-- 5. DESIGN BRIEF -->
+    <section id="view-brief" class="view-section" aria-labelledby="briefHeading">
+      <div class="section-banner no-print">
+        <div>
+          <span class="sticker sticker-yellow section-tag">TAILOR HANDOVER SHEET</span>
+          <h1 id="briefHeading" class="section-title">Design Brief Penjahit</h1>
+        </div>
+        <div class="brief-controls">
+          <select class="select-field" id="briefDesignSelector" aria-label="Pilih desain untuk Design Brief" style="width:auto; min-width:240px;">
+            <option value="current">Desain Aktif di Studio</option>
+          </select>
+          <button type="button" class="btn btn-pink" id="btnPrintBrief">&#128424; Cetak / Simpan PDF</button>
+        </div>
+      </div>
+
+      <div class="brief-container">
+        <article class="brief-paper" id="briefSheetContent"></article>
+      </div>
+    </section>
+
+    <!-- 6. STUDIO ADMIN CRUD -->
+    <section id="view-admin" class="view-section" aria-labelledby="adminHeading">
+      <div class="section-banner">
+        <div>
+          <span class="sticker sticker-lavender section-tag">LOCALSTORAGE CRUD MANAGER</span>
+          <h1 id="adminHeading" class="section-title">Studio Admin Dashboard</h1>
+        </div>
+        <button type="button" class="btn btn-white btn-sm" id="btnResetAdminDefaults">Reset Data Bawaan</button>
+      </div>
+
+      <div class="admin-tabs">
+        <button type="button" class="btn btn-cobalt btn-sm" id="tabAdminTemplates" data-admin-tab="templates">Kelola Template Desain</button>
+        <button type="button" class="btn btn-white btn-sm" id="tabAdminJenis" data-admin-tab="jenis">Kelola Jenis Permak &amp; Tarif</button>
+      </div>
+
+      <!-- Admin Templates CRUD -->
+      <div id="adminPanelTemplates" class="admin-layout">
+        <div class="studio-card ctrl-box">
+          <h2 class="ctrl-title" style="margin-bottom:1rem;" id="adminTplFormTitle">Tambah Template Baru</h2>
+          <form id="adminTemplateForm">
+            <input type="hidden" id="admTplId" />
+            <div class="form-block">
+              <label class="field-label" for="admTplName">Nama Template</label>
+              <input type="text" class="input-field" id="admTplName" required placeholder="Contoh: Kemeja Two-Tone Boxy" />
+            </div>
+            <div class="form-block">
+              <label class="field-label" for="admTplCategory">Kategori Pakaian</label>
+              <select class="select-field" id="admTplCategory"></select>
+            </div>
+            <div class="form-block">
+              <label class="field-label" for="admTplPermakType">Jenis Permak Utama</label>
+              <select class="select-field" id="admTplPermakType"></select>
+            </div>
+            <div class="form-block">
+              <label class="field-label" for="admTplDesc">Deskripsi</label>
+              <textarea class="textarea-field" id="admTplDesc" rows="2" required></textarea>
+            </div>
+            <div class="two-col-grid form-block">
+              <div>
+                <label class="field-label" for="admTplPrimaryColor">Warna Utama</label>
+                <input type="color" class="input-field color-input-box" id="admTplPrimaryColor" value="#FFFFFF" />
+              </div>
+              <div>
+                <label class="field-label" for="admTplSecondaryColor">Warna Alternatif</label>
+                <input type="color" class="input-field color-input-box" id="admTplSecondaryColor" value="#4357FF" />
+              </div>
+            </div>
+            <div class="form-block">
+              <label class="checkbox-label">
+                <input type="checkbox" id="admTplTwoTone" checked /> Aktifkan Mode Dua Warna (Two-Tone)
+              </label>
+            </div>
+            <div class="two-col-grid form-block">
+              <div>
+                <label class="field-label" for="admTplMin">Biaya Min (Rp)</label>
+                <input type="number" class="input-field" id="admTplMin" min="5000" step="5000" value="30000" required />
+              </div>
+              <div>
+                <label class="field-label" for="admTplMax">Biaya Max (Rp)</label>
+                <input type="number" class="input-field" id="admTplMax" min="5000" step="5000" value="70000" required />
+              </div>
+            </div>
+            <div class="form-block">
+              <label class="field-label" for="admTplDiff">Tingkat Kesulitan</label>
+              <select class="select-field" id="admTplDiff">
+                <option value="Mudah">Mudah</option>
+                <option value="Sedang" selected>Sedang</option>
+                <option value="Sulit">Sulit</option>
+              </select>
+            </div>
+            <div class="form-submit-row">
+              <button type="submit" class="btn btn-cobalt btn-sm" style="flex:1;">Simpan Template</button>
+              <button type="button" class="btn btn-white btn-sm" id="btnCancelAdminTpl">Batal</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="studio-card crud-table-wrap">
+          <table class="crud-table">
+            <thead>
+              <tr>
+                <th>Template</th>
+                <th>Kategori</th>
+                <th>Estimasi Biaya</th>
+                <th>Kesulitan</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="adminTemplatesTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Admin Jenis Permak CRUD -->
+      <div id="adminPanelJenis" class="admin-layout" hidden>
+        <div class="studio-card ctrl-box">
+          <h2 class="ctrl-title" style="margin-bottom:1rem;" id="adminJenisFormTitle">Tambah / Edit Jenis Permak</h2>
+          <form id="adminJenisForm">
+            <input type="hidden" id="admJenisId" />
+            <div class="form-block">
+              <label class="field-label" for="admJenisName">Nama Jenis Permak</label>
+              <input type="text" class="input-field" id="admJenisName" required />
+            </div>
+            <div class="form-block">
+              <label class="field-label" for="admJenisParam">Parameter Sistem</label>
+              <select class="select-field" id="admJenisParam">
+                <option value="panjang">panjang (Panjang Pakaian / Celana / Rok)</option>
+                <option value="panjangLengan">panjangLengan (Panjang Lengan Atasan)</option>
+                <option value="kerah">kerah (Model Kerah / Leher Atasan)</option>
+                <option value="pinggang">pinggang (Model Pinggang Celana / Rok)</option>
+                <option value="modelBawah">modelBawah (Potongan Kaki / Hem Bawah)</option>
+                <option value="fitting">fitting (Fitting / Siluet Badan)</option>
+                <option value="detail">detail (Detail Dekoratif &amp; Saku)</option>
+                <option value="twoTone">twoTone (Kombinasi Dua Warna / Color-Block)</option>
+                <option value="warna">warna (Perubahan Warna Utama)</option>
+              </select>
+            </div>
+            <div class="form-block">
+              <label class="field-label" for="admJenisDesc">Deskripsi</label>
+              <textarea class="textarea-field" id="admJenisDesc" rows="2" required></textarea>
+            </div>
+            <div class="two-col-grid form-block">
+              <div>
+                <label class="field-label" for="admJenisMin">Tarif Min (Rp)</label>
+                <input type="number" class="input-field" id="admJenisMin" min="5000" step="5000" value="15000" required />
+              </div>
+              <div>
+                <label class="field-label" for="admJenisMax">Tarif Max (Rp)</label>
+                <input type="number" class="input-field" id="admJenisMax" min="5000" step="5000" value="35000" required />
+              </div>
+            </div>
+            <div class="form-block">
+              <label class="field-label" for="admJenisDiff">Tingkat Kesulitan</label>
+              <select class="select-field" id="admJenisDiff">
+                <option value="Mudah">Mudah</option>
+                <option value="Sedang">Sedang</option>
+                <option value="Sulit">Sulit</option>
+              </select>
+            </div>
+            <div class="form-submit-row">
+              <button type="submit" class="btn btn-cobalt btn-sm" style="flex:1;">Simpan Tarif</button>
+              <button type="button" class="btn btn-white btn-sm" id="btnCancelAdminJenis">Batal</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="studio-card crud-table-wrap">
+          <table class="crud-table">
+            <thead>
+              <tr>
+                <th>Jenis Permak</th>
+                <th>Parameter</th>
+                <th>Tarif Simulasi</th>
+                <th>Kesulitan</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="adminJenisTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- MODAL: SAVE DESIGN -->
+  <div class="modal-overlay" id="saveDesignModal" role="dialog" aria-modal="true" aria-labelledby="saveModalTitle">
+    <div class="modal-box">
+      <span class="sticker sticker-lime" style="margin-bottom:0.5rem;">SAVE TO WARDROBE LAB</span>
+      <h2 id="saveModalTitle" style="font-size:1.65rem; margin-bottom:0.35rem;">Simpan Desain Permak</h2>
+      <p style="font-size:0.86rem; color:var(--muted); margin-bottom:1.15rem;">
+        Simpan rencana modifikasi ini ke <strong>My Designs</strong> agar dapat dibuka kembali atau dicetak menjadi Design Brief.
+      </p>
+      <div class="form-block">
+        <label class="field-label" for="saveDesignNameInput">Nama Desain Permak</label>
+        <input type="text" class="input-field" id="saveDesignNameInput" />
+      </div>
+      <div class="form-block">
+        <label class="field-label" for="saveDesignNotesInput">Catatan untuk Penjahit</label>
+        <textarea class="textarea-field" id="saveDesignNotesInput" rows="3"></textarea>
+      </div>
+      <div class="modal-footer-actions">
+        <button type="button" class="btn btn-white btn-sm" data-close-modal="saveDesignModal">Batal</button>
+        <button type="button" class="btn btn-cobalt btn-sm" id="btnConfirmSaveDesign">Simpan Sekarang</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: TEMPLATE DETAIL -->
+  <div class="modal-overlay" id="templateDetailModal" role="dialog" aria-modal="true" aria-label="Detail Template">
+    <div class="modal-box" id="templateDetailContent"></div>
+  </div>
+
+  <!-- MODAL: CONFIRMATION -->
+  <div class="modal-overlay" id="confirmModal" role="dialog" aria-modal="true" aria-labelledby="confirmModalTitle">
+    <div class="modal-box">
+      <h3 style="font-family:var(--font-display); font-size:1.3rem; margin-bottom:0.45rem;" id="confirmModalTitle">Konfirmasi</h3>
+      <p style="font-size:0.9rem; color:var(--muted); margin-bottom:1.4rem;" id="confirmModalMessage"></p>
+      <div class="modal-footer-actions">
+        <button type="button" class="btn btn-white btn-sm" data-close-modal="confirmModal">Batal</button>
+        <button type="button" class="btn btn-pink btn-sm" id="confirmModalOkBtn">Ya, Lanjutkan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST STACK -->
+  <div class="toast-stack" id="toastContainer" aria-live="polite"></div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+:root {
+  --cobalt: #4357FF;
+  --cobalt-dark: #2E40DB;
+  --pink: #FF4FA3;
+  --orange: #FF8A35;
+  --lime: #C7F464;
+  --lavender: #B9A2FF;
+  --yellow: #FFE45E;
+  --white: #FFFFFF;
+  --gray-bg: #F3F4F8;
+  --charcoal: #20212A;
+  --muted: #5A5D6E;
+
+  --border-ink: 2px solid #20212A;
+  --shadow-hard: 4px 4px 0px #20212A;
+  --shadow-hard-lg: 7px 7px 0px #20212A;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+
+  --font-display: 'Syne', sans-serif;
+  --font-editorial: 'Fraunces', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'Space Mono', monospace;
+}

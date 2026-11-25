@@ -1,0 +1,35 @@
+@page {
+  size: A4 portrait;
+  margin: 14mm;
+}
+
+@media print {
+  body {
+    background: #FFFFFF !important;
+    background-image: none !important;
+  }
+
+  .navbar, .no-print, .toast-stack, .modal-overlay {
+    display: none !important;
+  }
+
+  .view-section {
+    display: none !important;
+    padding: 0 !important;
+    max-width: 100% !important;
+  }
+
+  #view-brief {
+    display: block !important;
+  }
+
+  .brief-paper {
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+
+  .brief-media-grid, .brief-table, .brief-top {
+    break-inside: avoid;
+  }
+}

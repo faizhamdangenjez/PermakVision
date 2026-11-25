@@ -1,0 +1,43 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--gray-bg);
+  color: var(--charcoal);
+  line-height: 1.55;
+  background-image: radial-gradient(#D4D7E5 1.1px, transparent 1.1px);
+  background-size: 22px 22px;
+  overflow-x: hidden;
+}
+
+h1, h2, .display-font {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+.editorial-italic {
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-weight: 600;
+}
+
+.mono {
+  font-family: var(--font-mono);
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--cobalt);
+  outline-offset: 2px;
+}
